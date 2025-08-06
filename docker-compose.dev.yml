@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # Banco de dados PostgreSQL para desenvolvimento
+  postgres:
+    image: postgres:15-alpine
+    container_name: posts_api_db_dev
+    environment:
+      POSTGRES_DB: fiap
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - posts_api_network_dev
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Aplicação Node.js para desenvolvimento
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: posts_api_app_dev
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: fiap
+      DB_USER: postgres
+      DB_PASSWORD: root
+      JWT_SECRET: f6b0947563fca52b04d9aa8c5e31c542e87bb7f54fd74164ebdc24615e8eee73dc69d5f4aca1a8d147899df9f6b95ae07b4b78018c932140c0db105bac00d124
+      BCRYPT_ROUNDS: 12
+      LOG_LEVEL: debug
+    ports:
+      - "3000:3000"
+    volumes:
+      # Volume para hot reload do código
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - posts_api_network_dev
+    restart: unless-stopped
+
+volumes:
+  postgres_data_dev:
+
+networks:
+  posts_api_network_dev:
+    driver: bridge 

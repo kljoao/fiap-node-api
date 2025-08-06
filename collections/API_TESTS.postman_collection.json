@@ -1,0 +1,156 @@
+{
+  "info": {
+    "name": "Posts API - Test Collection",
+    "description": "Collection completa para testar todos os endpoints da API de Posts",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["health"]
+        },
+        "description": "Verifica se a API está funcionando"
+      }
+    },
+    {
+      "name": "GET - Listar Todos os Posts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/posts?page=1&limit=10",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["posts"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Lista todos os posts com paginação"
+      }
+    },
+    {
+      "name": "GET - Buscar Post por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/posts/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["posts", "1"]
+        },
+        "description": "Busca um post específico pelo ID"
+      }
+    },
+    {
+      "name": "GET - Buscar Posts por Palavra-chave",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/posts/search?keyword=tecnologia&page=1&limit=5",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["posts", "search"],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "tecnologia"
+            },
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        },
+        "description": "Busca posts que contenham a palavra-chave especificada"
+      }
+    },
+    {
+      "name": "POST - Criar Novo Post",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Novo Post de Teste\",\n  \"conteudo\": \"Este é um post criado para testar a API. Contém informações sobre desenvolvimento web e boas práticas.\",\n  \"autor\": \"João Silva\",\n  \"tags\": [\"teste\", \"api\", \"desenvolvimento\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/posts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["posts"]
+        },
+        "description": "Cria um novo post"
+      }
+    },
+    {
+      "name": "PUT - Atualizar Post",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Post Atualizado\",\n  \"conteudo\": \"Este post foi atualizado com sucesso. Agora contém informações mais detalhadas sobre a API.\",\n  \"autor\": \"João Silva Atualizado\",\n  \"tags\": [\"atualizado\", \"api\", \"teste\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/posts/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["posts", "1"]
+        },
+        "description": "Atualiza um post existente"
+      }
+    },
+    {
+      "name": "DELETE - Excluir Post",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/posts/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["posts", "1"]
+        },
+        "description": "Exclui um post específico"
+      }
+    }
+  ]
+} 
