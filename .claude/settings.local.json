@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install:*)",
+      "Bash(cp:*)",
+      "Bash(psql:*)",
+      "Bash(\"C:\\\\Program Files\\\\PostgreSQL\\\\17\\\\bin\\\\psql.exe\" --version)",
+      "Bash(\"C:\\\\Program Files\\\\PostgreSQL\\\\17\\\\bin\\\\createdb.exe\" -U postgres -h localhost fiap)",
+      "Bash(set PGPASSWORD=root:*)",
+      "Bash(\"C:\\\\Program Files\\\\PostgreSQL\\\\17\\\\bin\\\\psql.exe\" -U postgres -h localhost -c \"CREATE DATABASE fiap;\")",
+      "Bash(powershell -Command \"$env:PGPASSWORD=''root''; & ''C:\\\\Program Files\\\\PostgreSQL\\\\17\\\\bin\\\\psql.exe'' -U postgres -h localhost -c ''CREATE DATABASE fiap;''\")"
+    ]
+  }
+}

@@ -1,6 +1,22 @@
 -- Script de inicialização do banco de dados
--- Criação da tabela posts
 
+-- Criação da tabela users
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    tipo VARCHAR(20) NOT NULL CHECK (tipo IN ('professor', 'aluno')),
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Índice para email (para login rápido)
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+
+-- Índice para tipo de usuário
+CREATE INDEX IF NOT EXISTS idx_users_tipo ON users(tipo);
+
+-- Criação da tabela posts
 CREATE TABLE IF NOT EXISTS posts (
     id SERIAL PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
